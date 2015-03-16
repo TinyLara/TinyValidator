@@ -59,8 +59,6 @@ class TinyValidator {
 
   public function __call($method, $parameters)
   {
-    if ( !in_array($method, ['required', 'email', 'min', 'max']) ) {
-      throw new \UnexpectedValueException("Validate rule [$method] does not exist!");
-    }
+    throw new \UnexpectedValueException("Validate rule [$method] does not exist!");
   }
 }
