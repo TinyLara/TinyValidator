@@ -40,21 +40,29 @@ class TinyValidator {
     }
   }
 
-  public function required($value)
+  protected function required($value)
   {
     return !$value ? $this->reasons['required'] : true;
   }
-  public function email($value)
+  protected function email($value)
   {
     return filter_var($value, FILTER_VALIDATE_EMAIL) ? true : $this->reasons['email'];
   }
-  public function min($value, $min)
+  protected function min($value, $min)
   {
     return mb_strlen($value, 'UTF-8') >= $min ? true : str_replace(':min', $min, $this->reasons['min']);
   }
-  public function max($value, $max)
+  protected function max($value, $max)
   {
     return mb_strlen($value, 'UTF-8') <= $max ? true : str_replace(':max', $max, $this->reasons['max']);
+  }
+  protected function numeric($value)
+  {
+    return is_numeric($value) ? true : $this->reasons['numeric'];
+  }
+  protected function integer($value)
+  {
+    return filter_var($value, FILTER_VALIDATE_INT) !== false ? true : $this->reasons['integer'];
   }
 
   public function __call($method, $parameters)
